@@ -85,9 +85,9 @@
     .content {
       display: grid;
       justify-items: center;
-      gap: 24px;
+      gap: 18px;
       width: 1040px;
-      transform: translateY(-4px);
+      transform: translateY(-2px);
     }
 
     .logo-row {
@@ -154,7 +154,7 @@
     .events {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+      gap: 12px 18px;
       width: 820px;
     }
 
@@ -193,6 +193,17 @@
       color: var(--pink);
     }
 
+    .recap {
+      grid-column: 1 / -1;
+      min-height: 82px;
+      padding-block: 16px;
+    }
+
+    .recap .route {
+      color: #62d9cf;
+      font-size: 20px;
+    }
+
     .date {
       color: rgba(255, 255, 255, .86);
       font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
@@ -219,6 +230,10 @@
         <div class="event seoul">
           <span class="route">//localhost:Seoul</span>
           <span class="date">6월 25일 목요일</span>
+        </div>
+        <div class="event recap">
+          <span class="route">Build 2026 Recap and Hands on lab</span>
+          <span class="date">6월 13일 토요일 · 09:30~18:00</span>
         </div>
       </div>
     </section>
