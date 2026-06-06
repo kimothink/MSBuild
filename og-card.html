@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Microsoft Build 2026 OG</title>
+  <style>
+    :root {
+      --blue: #28b8f7;
+      --red: #f82418;
+      --orange: #ff8a0a;
+      --yellow: #ffe80c;
+      --green: #62b73d;
+      --cyan: #2abfc2;
+      --purple: #6720ff;
+      --pink: #f05ed9;
+      --cell: 18px;
+      --gap: 5px;
+      --letter-gap: 15px;
+      --year-cell: 11px;
+      --year-gap: 3px;
+      --year-digit-gap: 9px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 1200px;
+      height: 630px;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-family: Consolas, "Cascadia Mono", "SFMono-Regular", Menlo, monospace;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      width: 1200px;
+      height: 630px;
+      place-items: center;
+      isolation: isolate;
+    }
+
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      z-index: -1;
+    }
+
+    .card::before {
+      top: 0;
+      height: 154px;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 11px, rgba(150, 150, 150, .42) 11px 14px, transparent 14px 24px) 74% 54px / 230px 14px no-repeat,
+        linear-gradient(#bf5cff 0 38%, #7c25f6 38% 100%) 0 0 / 68px 126px no-repeat,
+        linear-gradient(#ffe300 0 100%) 68px 0 / 20px 48px no-repeat,
+        linear-gradient(#c70039 0 100%) 154px 0 / 72px 44px no-repeat,
+        linear-gradient(#d00036 0 100%) 650px 0 / 58px 54px no-repeat,
+        linear-gradient(#ef64dc 0 100%) calc(100% - 112px) 0 / 52px 92px no-repeat,
+        linear-gradient(#bb236d 0 100%) calc(100% - 34px) 0 / 34px 64px no-repeat;
+    }
+
+    .card::after {
+      bottom: 0;
+      height: 146px;
+      background:
+        repeating-linear-gradient(90deg, rgba(150, 150, 150, .44) 0 3px, transparent 3px 10px) 22% calc(100% - 14px) / 126px 12px no-repeat,
+        linear-gradient(#0f3f12 0 26%, #ffbd09 26% 68%, #ffe400 68% 100%) 0 44px / 92px 102px no-repeat,
+        linear-gradient(#22c6b6 0 100%) 490px 80px / 24px 66px no-repeat,
+        linear-gradient(#ea00a7 0 100%) 514px 98px / 32px 48px no-repeat,
+        linear-gradient(#ff8c08 0 100%) 748px 72px / 60px 74px no-repeat,
+        linear-gradient(#ed62d8 0 100%) 834px 104px / 58px 42px no-repeat,
+        linear-gradient(#6720ff 0 100%) 882px 82px / 72px 64px no-repeat,
+        linear-gradient(#ffe80c 0 100%) calc(100% - 86px) 94px / 50px 52px no-repeat,
+        linear-gradient(#5aa531 0 100%) calc(100% - 36px) 58px / 36px 88px no-repeat;
+    }
+
+    .content {
+      display: grid;
+      justify-items: center;
+      gap: 24px;
+      width: 1040px;
+      transform: translateY(-4px);
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .build-logo,
+    .year-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: saturate(1.1);
+    }
+
+    .build-logo {
+      gap: var(--letter-gap);
+    }
+
+    .year-logo {
+      gap: var(--year-digit-gap);
+    }
+
+    .letter {
+      display: grid;
+      grid-template-columns: repeat(5, var(--cell));
+      grid-template-rows: repeat(7, var(--cell));
+      gap: var(--gap);
+    }
+
+    .year-digit {
+      display: grid;
+      grid-template-columns: repeat(3, var(--year-cell));
+      grid-template-rows: repeat(5, var(--year-cell));
+      gap: var(--year-gap);
+    }
+
+    .pixel,
+    .year-pixel {
+      background: var(--pixel-color);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .9);
+    }
+
+    .pixel {
+      width: var(--cell);
+      height: var(--cell);
+    }
+
+    .year-pixel {
+      width: var(--year-cell);
+      height: var(--year-cell);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--blue);
+      font-size: 31px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .events {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      width: 820px;
+    }
+
+    .event {
+      position: relative;
+      display: grid;
+      gap: 9px;
+      min-height: 108px;
+      align-content: center;
+      padding: 20px 28px 18px 34px;
+      border: 2px solid rgba(255, 255, 255, .28);
+      border-radius: 6px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02));
+      overflow: hidden;
+    }
+
+    .event::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      background: linear-gradient(180deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple));
+    }
+
+    .route {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .daegu .route {
+      color: var(--yellow);
+    }
+
+    .seoul .route {
+      color: var(--pink);
+    }
+
+    .date {
+      color: rgba(255, 255, 255, .86);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="content" aria-label="Microsoft Build 2026">
+      <div class="logo-row" aria-hidden="true">
+        <div id="build-logo" class="build-logo"></div>
+        <div id="year-logo" class="year-logo"></div>
+      </div>
+      <p class="subtitle">MICROSOFT BUILD</p>
+      <div class="events">
+        <div class="event daegu">
+          <span class="route">//localhost:Daegu</span>
+          <span class="date">6월 24일 수요일</span>
+        </div>
+        <div class="event seoul">
+          <span class="route">//localhost:Seoul</span>
+          <span class="date">6월 25일 목요일</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const letters = {
+      B: ["11110", "10001", "10001", "11110", "10001", "10001", "11110"],
+      U: ["10001", "10001", "10001", "10001", "10001", "10001", "11111"],
+      I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+      L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+      D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"]
+    };
+
+    const digits = {
+      0: ["111", "101", "101", "101", "111"],
+      2: ["111", "001", "111", "100", "111"],
+      6: ["111", "100", "111", "101", "111"]
+    };
+
+    const palette = [
+      "#f82418",
+      "#ff8a0a",
+      "#ffe80c",
+      "#62b73d",
+      "#2abfc2",
+      "#28b8f7",
+      "#376bc4",
+      "#6720ff",
+      "#f05ed9"
+    ];
+
+    function renderPixels(target, text, patterns, itemClass, pixelClass) {
+      text.split("").forEach((character, characterIndex) => {
+        const item = document.createElement("div");
+        item.className = itemClass;
+
+        patterns[character].forEach((row, rowIndex) => {
+          row.split("").forEach((cell, columnIndex) => {
+            const pixel = document.createElement("span");
+            if (cell === "1") {
+              const colorIndex = (rowIndex + columnIndex + characterIndex * 2) % palette.length;
+              pixel.className = pixelClass;
+              pixel.style.setProperty("--pixel-color", palette[colorIndex]);
+            }
+            item.appendChild(pixel);
+          });
+        });
+
+        target.appendChild(item);
+      });
+    }
+
+    renderPixels(document.getElementById("build-logo"), "BUILD", letters, "letter", "pixel");
+    renderPixels(document.getElementById("year-logo"), "2026", digits, "year-digit", "year-pixel");
+  </script>
+</body>
+</html>
