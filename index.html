@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MS BUILD</title>
+  <meta name="description" content="Microsoft Build Daegu and Seoul event links.">
+  <meta property="og:title" content="MS BUILD">
+  <meta property="og:description" content="Microsoft Build Daegu and Seoul event links.">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #000;
+      --blue: #28b8f7;
+      --red: #f82418;
+      --orange: #ff8a0a;
+      --yellow: #ffe80c;
+      --green: #62b73d;
+      --cyan: #2abfc2;
+      --purple: #6720ff;
+      --pink: #f05ed9;
+      --cell: 22px;
+      --gap: 7px;
+      --letter-gap: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      background: var(--bg);
+      font-family: Consolas, "Cascadia Mono", "SFMono-Regular", Menlo, monospace;
+      color: #fff;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    .stage {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 56px 20px 48px;
+      isolation: isolate;
+    }
+
+    .stage::before,
+    .stage::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .stage::before {
+      top: 0;
+      height: 34vh;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 12px, rgba(150, 150, 150, .42) 12px 15px, transparent 15px 25px) 76% 64px / 230px 16px no-repeat,
+        repeating-linear-gradient(90deg, transparent 0 10px, rgba(150, 150, 150, .35) 10px 13px, transparent 13px 23px) 30% 186px / 245px 16px no-repeat,
+        linear-gradient(#bf5cff 0 38%, #7c25f6 38% 100%) 0 0 / 62px 138px no-repeat,
+        linear-gradient(#ffe300 0 100%) 58px 0 / 18px 50px no-repeat,
+        linear-gradient(#c70039 0 100%) 136px 0 / 68px 46px no-repeat,
+        linear-gradient(#d00036 0 100%) 524px 0 / 56px 58px no-repeat,
+        linear-gradient(#2b7eb1 0 100%) 504px 0 / 20px 24px no-repeat,
+        linear-gradient(#ef64dc 0 100%) calc(100% - 104px) 0 / 48px 98px no-repeat,
+        linear-gradient(#bb236d 0 100%) calc(100% - 30px) 0 / 30px 68px no-repeat;
+    }
+
+    .stage::after {
+      bottom: 0;
+      height: 30vh;
+      background:
+        repeating-linear-gradient(90deg, rgba(150, 150, 150, .46) 0 3px, transparent 3px 10px) 24% calc(100% - 16px) / 116px 12px no-repeat,
+        repeating-linear-gradient(0deg, rgba(150, 150, 150, .5) 0 8px, transparent 8px 18px) 74% calc(100% - 88px) / 28px 100px no-repeat,
+        linear-gradient(#0f3f12 0 28%, #ffbd09 28% 74%, #ffe400 74% 100%) 0 68px / 88px 118px no-repeat,
+        linear-gradient(#22c6b6 0 100%) calc(50% - 510px) 96px / 22px 86px no-repeat,
+        linear-gradient(#ea00a7 0 100%) calc(50% - 488px) 118px / 30px 64px no-repeat,
+        linear-gradient(#ff8c08 0 100%) calc(50% + 88px) 102px / 56px 86px no-repeat,
+        linear-gradient(#ed62d8 0 100%) calc(50% + 168px) 144px / 58px 48px no-repeat,
+        linear-gradient(#6720ff 0 100%) calc(50% + 212px) 118px / 70px 74px no-repeat,
+        linear-gradient(#2d7eb1 0 100%) calc(50% + 274px) 86px / 22px 104px no-repeat,
+        linear-gradient(#ffe80c 0 100%) calc(100% - 78px) 118px / 46px 74px no-repeat,
+        linear-gradient(#5aa531 0 100%) calc(100% - 32px) 84px / 32px 104px no-repeat;
+    }
+
+    .hero {
+      display: grid;
+      width: min(100%, 960px);
+      justify-items: center;
+      gap: 30px;
+      transform: translateY(4px);
+    }
+
+    .build-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--letter-gap);
+      width: 100%;
+      min-height: calc(var(--cell) * 7 + var(--gap) * 6);
+      filter: saturate(1.1);
+    }
+
+    .letter {
+      display: grid;
+      grid-template-columns: repeat(5, var(--cell));
+      grid-template-rows: repeat(7, var(--cell));
+      gap: var(--gap);
+    }
+
+    .pixel {
+      width: var(--cell);
+      height: var(--cell);
+      background: var(--pixel-color);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .88);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--blue);
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(40, 184, 247, .2);
+    }
+
+    .event-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      width: min(100%, 720px);
+      margin-top: 6px;
+    }
+
+    .event-link {
+      position: relative;
+      display: grid;
+      min-height: 106px;
+      align-content: center;
+      gap: 9px;
+      padding: 24px 26px 22px;
+      border: 2px solid rgba(255, 255, 255, .26);
+      border-radius: 6px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)),
+        #050505;
+      color: #fff;
+      text-decoration: none;
+      outline-offset: 6px;
+      overflow: hidden;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .event-link::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      background: linear-gradient(180deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple));
+    }
+
+    .event-link::after {
+      content: "->";
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      color: var(--blue);
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .event-link:hover,
+    .event-link:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(40, 184, 247, .88);
+      background:
+        linear-gradient(180deg, rgba(40, 184, 247, .14), rgba(255, 255, 255, .04)),
+        #050505;
+    }
+
+    .event-name {
+      display: block;
+      padding-right: 36px;
+      color: var(--blue);
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .route {
+      display: block;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+      word-break: keep-all;
+    }
+
+    .city-daegu .route {
+      color: #ffe80c;
+    }
+
+    .city-seoul .route {
+      color: #f05ed9;
+    }
+
+    .screen-reader-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 840px) {
+      :root {
+        --cell: 15px;
+        --gap: 5px;
+        --letter-gap: 13px;
+      }
+
+      .stage {
+        padding: 44px 16px 34px;
+      }
+
+      .hero {
+        gap: 22px;
+      }
+
+      .subtitle {
+        font-size: 1.55rem;
+      }
+
+      .event-links {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+      }
+
+      .event-link {
+        min-height: 92px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      :root {
+        --cell: 10px;
+        --gap: 3px;
+        --letter-gap: 8px;
+      }
+
+      .subtitle {
+        font-size: 1.25rem;
+      }
+
+      .route {
+        font-size: 1rem;
+      }
+
+      .event-name {
+        font-size: .92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title" class="screen-reader-only">Microsoft Build event links</h1>
+      <div id="build-logo" class="build-logo" aria-hidden="true"></div>
+      <p class="subtitle">MICROSOFT BUILD</p>
+      <nav class="event-links" aria-label="Microsoft Build links">
+        <a class="event-link city-daegu" href="https://ticketa.co/event/yjp015vu" target="_blank" rel="noopener noreferrer">
+          <span class="event-name">Microsoft Build</span>
+          <span class="route">//localhost:Daegu</span>
+        </a>
+        <a class="event-link city-seoul" href="https://ticketa.co/event/m8adkbnl" target="_blank" rel="noopener noreferrer">
+          <span class="event-name">Microsoft Build</span>
+          <span class="route">//localhost:Seoul</span>
+        </a>
+      </nav>
+    </section>
+  </main>
+
+  <script>
+    const letters = {
+      B: [
+        "11110",
+        "10001",
+        "10001",
+        "11110",
+        "10001",
+        "10001",
+        "11110"
+      ],
+      U: [
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "11111"
+      ],
+      I: [
+        "11111",
+        "00100",
+        "00100",
+        "00100",
+        "00100",
+        "00100",
+        "11111"
+      ],
+      L: [
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "11111"
+      ],
+      D: [
+        "11110",
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "11110"
+      ]
+    };
+
+    const palette = [
+      "#f82418",
+      "#ff8a0a",
+      "#ffe80c",
+      "#62b73d",
+      "#2abfc2",
+      "#28b8f7",
+      "#376bc4",
+      "#6720ff",
+      "#f05ed9"
+    ];
+
+    const logo = document.getElementById("build-logo");
+
+    "BUILD".split("").forEach((letter, letterIndex) => {
+      const letterNode = document.createElement("div");
+      letterNode.className = "letter";
+      letterNode.setAttribute("aria-hidden", "true");
+
+      letters[letter].forEach((row, rowIndex) => {
+        row.split("").forEach((cell, columnIndex) => {
+          const pixel = document.createElement("span");
+          if (cell === "1") {
+            const colorIndex = (rowIndex + columnIndex + letterIndex * 2) % palette.length;
+            pixel.className = "pixel";
+            pixel.style.setProperty("--pixel-color", palette[colorIndex]);
+          }
+          letterNode.appendChild(pixel);
+        });
+      });
+
+      logo.appendChild(letterNode);
+    });
+  </script>
+</body>
+</html>
