@@ -23,6 +23,9 @@
       --cell: 22px;
       --gap: 7px;
       --letter-gap: 22px;
+      --year-cell: 9px;
+      --year-gap: 3px;
+      --year-digit-gap: 12px;
     }
 
     * {
@@ -96,8 +99,32 @@
       display: grid;
       width: min(100%, 960px);
       justify-items: center;
-      gap: 30px;
+      gap: 24px;
       transform: translateY(4px);
+    }
+
+    .year-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--year-digit-gap);
+      min-height: calc(var(--year-cell) * 5 + var(--year-gap) * 4);
+      margin-bottom: -6px;
+      filter: saturate(1.1);
+    }
+
+    .year-digit {
+      display: grid;
+      grid-template-columns: repeat(3, var(--year-cell));
+      grid-template-rows: repeat(5, var(--year-cell));
+      gap: var(--year-gap);
+    }
+
+    .year-pixel {
+      width: var(--year-cell);
+      height: var(--year-cell);
+      background: var(--pixel-color);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .88);
     }
 
     .build-logo {
@@ -146,7 +173,7 @@
     .event-link {
       position: relative;
       display: grid;
-      min-height: 106px;
+      min-height: 126px;
       align-content: center;
       gap: 9px;
       padding: 24px 26px 22px;
@@ -207,6 +234,14 @@
       word-break: keep-all;
     }
 
+    .event-date {
+      display: block;
+      color: rgba(255, 255, 255, .82);
+      font-size: .96rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
     .city-daegu .route {
       color: #ffe80c;
     }
@@ -232,6 +267,9 @@
         --cell: 15px;
         --gap: 5px;
         --letter-gap: 13px;
+        --year-cell: 7px;
+        --year-gap: 2px;
+        --year-digit-gap: 9px;
       }
 
       .stage {
@@ -252,7 +290,7 @@
       }
 
       .event-link {
-        min-height: 92px;
+        min-height: 112px;
       }
     }
 
@@ -261,6 +299,9 @@
         --cell: 10px;
         --gap: 3px;
         --letter-gap: 8px;
+        --year-cell: 5px;
+        --year-gap: 2px;
+        --year-digit-gap: 6px;
       }
 
       .subtitle {
@@ -274,23 +315,30 @@
       .event-name {
         font-size: .92rem;
       }
+
+      .event-date {
+        font-size: .86rem;
+      }
     }
   </style>
 </head>
 <body>
   <main class="stage">
     <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title" class="screen-reader-only">Microsoft Build event links</h1>
+      <h1 id="page-title" class="screen-reader-only">Microsoft Build 2026 event links</h1>
+      <div id="year-logo" class="year-logo" aria-hidden="true"></div>
       <div id="build-logo" class="build-logo" aria-hidden="true"></div>
       <p class="subtitle">MICROSOFT BUILD</p>
       <nav class="event-links" aria-label="Microsoft Build links">
         <a class="event-link city-daegu" href="https://ticketa.co/event/yjp015vu" target="_blank" rel="noopener noreferrer">
           <span class="event-name">Microsoft Build</span>
           <span class="route">//localhost:Daegu</span>
+          <span class="event-date">6월 24일 수요일</span>
         </a>
         <a class="event-link city-seoul" href="https://ticketa.co/event/m8adkbnl" target="_blank" rel="noopener noreferrer">
           <span class="event-name">Microsoft Build</span>
           <span class="route">//localhost:Seoul</span>
+          <span class="event-date">6월 25일 목요일</span>
         </a>
       </nav>
     </section>
@@ -345,6 +393,30 @@
       ]
     };
 
+    const digits = {
+      0: [
+        "111",
+        "101",
+        "101",
+        "101",
+        "111"
+      ],
+      2: [
+        "111",
+        "001",
+        "111",
+        "100",
+        "111"
+      ],
+      6: [
+        "111",
+        "100",
+        "111",
+        "101",
+        "111"
+      ]
+    };
+
     const palette = [
       "#f82418",
       "#ff8a0a",
@@ -357,7 +429,28 @@
       "#f05ed9"
     ];
 
+    const yearLogo = document.getElementById("year-logo");
     const logo = document.getElementById("build-logo");
+
+    "2026".split("").forEach((digit, digitIndex) => {
+      const digitNode = document.createElement("div");
+      digitNode.className = "year-digit";
+      digitNode.setAttribute("aria-hidden", "true");
+
+      digits[digit].forEach((row, rowIndex) => {
+        row.split("").forEach((cell, columnIndex) => {
+          const pixel = document.createElement("span");
+          if (cell === "1") {
+            const colorIndex = (rowIndex + columnIndex + digitIndex * 2) % palette.length;
+            pixel.className = "year-pixel";
+            pixel.style.setProperty("--pixel-color", palette[colorIndex]);
+          }
+          digitNode.appendChild(pixel);
+        });
+      });
+
+      yearLogo.appendChild(digitNode);
+    });
 
     "BUILD".split("").forEach((letter, letterIndex) => {
       const letterNode = document.createElement("div");
